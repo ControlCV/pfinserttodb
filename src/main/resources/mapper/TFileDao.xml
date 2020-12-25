@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.dao.TFileDao">
+
+    <resultMap id="BaseResultMap" type="com.example.entity.TFile">
+        <!--@Table t_file-->
+        <result property="id" column="id" jdbcType="VARCHAR"/>
+        <result property="relationId" column="relation_id" jdbcType="VARCHAR"/>
+        <result property="relationType" column="relation_type" jdbcType="VARCHAR"/>
+        <result property="name" column="name" jdbcType="VARCHAR"/>
+        <result property="path" column="path" jdbcType="VARCHAR"/>
+        <result property="description" column="description" jdbcType="VARCHAR"/>
+        <result property="suffix" column="suffix" jdbcType="VARCHAR"/>
+        <result property="size" column="size" jdbcType="INTEGER"/>
+        <result property="originalName" column="original_name" jdbcType="VARCHAR"/>
+        <result property="sort" column="sort" jdbcType="INTEGER"/>
+        <result property="isDelete" column="is_delete" jdbcType="INTEGER"/>
+        <result property="createdDateTime" column="created_date_time" jdbcType="TIMESTAMP"/>
+        <result property="createdById" column="created_by_id" jdbcType="VARCHAR"/>
+        <result property="updatedDateTime" column="updated_date_time" jdbcType="TIMESTAMP"/>
+        <result property="updatedById" column="updated_by_id" jdbcType="VARCHAR"/>
+    </resultMap>
+
+
+</mapper>
