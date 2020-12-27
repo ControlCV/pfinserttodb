@@ -12,6 +12,8 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import java.io.*;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 
@@ -24,7 +26,7 @@ public class ExcelToInsert {
     @PostConstruct
     @Scheduled(cron = "0 0 0 1/1 * ? ")
     public void test() throws IOException{
-        String filePath = "C:\\Users\\LENOVO\\Desktop\\活动量历史数据.xlsx";
+        String filePath = "C:\\Users\\19161\\Desktop\\1111.xlsx";
         InputStream fis = null;
 
         fis = new FileInputStream(filePath);
@@ -42,6 +44,8 @@ public class ExcelToInsert {
 
         //获得数据的总行数
         int totalRowNum = sheet.getLastRowNum();
+
+        Date beginTime = new Date();
 
         //获得所有数据
         for(int i = 1 ; i <= totalRowNum ; i++)
@@ -103,8 +107,19 @@ public class ExcelToInsert {
                     System.out.println("第"+i+"行备注缺失");
                 }
                 //拜访开始日期 时分秒
-                Date startTime = row.getCell(6).getDateCellValue();
+//                Date startTime = row.getCell(6).getDateCellValue();
+                Cell cell6 = row.getCell(6);
+                cell6.setCellType(Cell.CELL_TYPE_STRING);
+                String date = cell6.getStringCellValue();
+                DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                 Date startTime=new Date();
                 try{
+                    startTime = format.parse(date);
+                }catch (Exception e){
+
+                }
+
+            try{
                     test.insertdb(i, agentCode, ownerType, customName, customPhone, label, content, startTime);
                 } catch (Exception e) {
                     System.out.println("第"+i+"行插入出现异常");
@@ -133,7 +148,9 @@ public class ExcelToInsert {
 
         }
 
-        System.out.println("所有数据都已经插入数据库");
+        Date endTime = new Date();
+        long diff = (endTime.getTime() - beginTime.getTime())/1000;
+        System.out.println("所有数据都已经插入数据库,总用时："+diff+"秒");
     }
 
 
